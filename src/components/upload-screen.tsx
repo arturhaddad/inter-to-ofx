@@ -156,6 +156,7 @@ export default function UploadScreen({ onContinue }: Props) {
             placeholder="Deixe em branco se não houver senha"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && files.length > 0 && onContinue(files, password)}
             autoComplete="off"
           />
         </div>
