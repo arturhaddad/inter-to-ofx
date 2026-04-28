@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { SuccessRow, ErrorRow } from '@/components/file-result-row';
 import type { ConvertedFile, FailedFile } from '@/types';
 import { buildZipBlob, downloadBlob } from '@/lib/zip';
-import { Download, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
+import { Download, ArrowLeft, CheckCircle, XCircle, Check } from 'lucide-react';
 
 type Props = {
   converted: ConvertedFile[];
@@ -11,6 +13,14 @@ type Props = {
 };
 
 export default function ResultsScreen({ converted, failed, onReset }: Props) {
+  const [copied, setCopied] = useState(false);
+
+  const copyPix = () => {
+    navigator.clipboard.writeText('67057e4c-8573-4523-9d2d-43b4c8461f81');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const handleDownloadAll = () => {
     if (converted.length === 0) return;
     const files = converted.map(f => ({ name: f.outputName, content: f.ofxContent }));
@@ -85,6 +95,37 @@ export default function ResultsScreen({ converted, failed, onReset }: Props) {
             ))}
           </div>
         )}
+
+        {/* Buy me a coffee */}
+        <Tooltip>
+          <TooltipTrigger
+            onClick={copyPix}
+            className="w-full flex flex-col items-center gap-3 rounded-2xl border border-border bg-muted/30 px-5 py-5 cursor-pointer hover:bg-accent/50 transition-colors"
+          >
+            <div className="text-center">
+              <p className="text-sm font-semibold text-foreground">Esse app te ajudou?</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {copied ? 'Chave Pix copiada! Obrigado ❤️' : 'Me pague um cafézinho ☕'}
+              </p>
+            </div>
+            <div className="relative">
+              <img
+                src="/qr-code.png"
+                alt="QR Code Pix"
+                className="size-32 rounded-md"
+              />
+              {copied && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-md bg-background/90 backdrop-blur-sm">
+                  <Check className="w-7 h-7 text-green-500" />
+                  <span className="text-xs font-medium text-green-600">Copiado!</span>
+                </div>
+              )}
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Copiar chave Pix</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );
