@@ -148,14 +148,21 @@ export default function UploadScreen({ onContinue }: Props) {
           />
         </div>
 
-        <Button
-          className="w-full"
-          size="lg"
-          disabled={files.length === 0}
-          onClick={() => onContinue(files, password)}
-        >
-          Continuar
-        </Button>
+        <div className="space-y-3">
+          <Button
+            className="w-full"
+            size="lg"
+            disabled={files.length === 0}
+            onClick={() => onContinue(files, password)}
+          >
+            Continuar
+          </Button>
+
+          <p className="flex gap-1.5 justify-center items-center text-xs text-muted-foreground">
+            <Lock className="w-3 h-3 shrink-0" />
+            Processamento 100% local no navegador. Nenhum arquivo sai do seu dispositivo.
+          </p>
+        </div>
       </div>
     </div>
   );
