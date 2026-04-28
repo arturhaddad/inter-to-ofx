@@ -87,7 +87,7 @@ export default function UploadScreen({ onContinue }: Props) {
           </div>
           <div className="text-center">
             <p className="text-sm font-medium">Clique para selecionar PDFs</p>
-            <p className="mt-1 text-xs text-muted-foreground">ou arraste e solte aqui (ou em qualquer lugar da página)</p>
+            <p className="mt-1 text-xs text-muted-foreground">ou arraste e solte aqui</p>
           </div>
         </button>
 
